@@ -1,0 +1,997 @@
+{
+  "users": [
+    {
+      "id": "user_stu_ananya",
+      "displayName": "Ananya Sharma Updated",
+      "role": "student",
+      "branch": "Information Technology",
+      "academicYear": "Third Year",
+      "hostelAssignment": "Girls' Hostel",
+      "verified": true,
+      "regNumber": "241108",
+      "email": "ananya.s@aitpune.edu.in",
+      "phone": "+91 9823012345",
+      "admissionBatch": "2023-2027"
+    },
+    {
+      "id": "user_stu_rohan",
+      "displayName": "Rohan Verma",
+      "role": "student",
+      "branch": "Computer Engineering",
+      "academicYear": "Fourth Year",
+      "hostelAssignment": "Boys' Hostel",
+      "verified": true,
+      "regNumber": "231045",
+      "email": "rohan.v@aitpune.edu.in",
+      "phone": "+91 9823054321",
+      "admissionBatch": "2022-2026"
+    },
+    {
+      "id": "user_stu_fe",
+      "displayName": "Divya Nair",
+      "role": "student",
+      "branch": "First Year Engineering (Common)",
+      "academicYear": "First Year",
+      "hostelAssignment": "Girls' Hostel",
+      "verified": true,
+      "regNumber": "261012",
+      "email": "divya.n@aitpune.edu.in",
+      "phone": "+91 9823098765",
+      "admissionBatch": "2025-2029"
+    },
+    {
+      "id": "user_club_lead_aarav",
+      "displayName": "Aarav Kulkarni",
+      "role": "club_lead",
+      "managedClub": "Google Development Student Club (GDSC)",
+      "branch": "Computer Engineering",
+      "academicYear": "Fourth Year",
+      "hostelAssignment": "Boys' Hostel",
+      "verified": true,
+      "regNumber": "231011",
+      "email": "aarav.k@aitpune.edu.in",
+      "phone": "+91 9823011111",
+      "admissionBatch": "2022-2026"
+    },
+    {
+      "id": "user_faculty_deshmukh",
+      "displayName": "Prof. K. S. Deshmukh",
+      "role": "faculty",
+      "department": "Computer Engineering (COMP)",
+      "designation": "Head of Department & Innovation Mentor",
+      "hostelAssignment": "None",
+      "verified": true,
+      "email": "ksdeshmukh@aitpune.edu.in",
+      "phone": "+91 9823022222"
+    },
+    {
+      "id": "user_warden_patil",
+      "displayName": "Dr. Sunita Patil",
+      "role": "warden",
+      "assignedHostel": "Girls' Hostel",
+      "hostelAssignment": "Girls' Hostel",
+      "designation": "Chief Warden - Girls' Hostel",
+      "verified": true,
+      "email": "warden.girls@aitpune.edu.in",
+      "phone": "+91 9823033333"
+    },
+    {
+      "id": "user_warden_singh",
+      "displayName": "Col. R. K. Singh",
+      "role": "warden",
+      "assignedHostel": "Boys' Hostel",
+      "hostelAssignment": "Boys' Hostel",
+      "designation": "Chief Warden - Boys' Hostel",
+      "verified": true,
+      "email": "warden.boys@aitpune.edu.in",
+      "phone": "+91 9823044444"
+    },
+    {
+      "id": "user_alumni_priya",
+      "displayName": "Priya Rathore",
+      "role": "alumni",
+      "graduationYear": 2022,
+      "company": "Microsoft India",
+      "designation": "Software Engineer II",
+      "verified": true,
+      "hostelAssignment": "None",
+      "email": "priya.rathore@alumni.aitpune.edu.in",
+      "phone": "+91 9823055555"
+    },
+    {
+      "id": "user_alumni_vikram",
+      "displayName": "Vikram Choudhary",
+      "role": "alumni",
+      "graduationYear": 2024,
+      "company": "AeroDrone Technologies",
+      "designation": "Co-founder",
+      "verified": false,
+      "hostelAssignment": "None",
+      "email": "vikram.c@alumni.aitpune.edu.in",
+      "phone": "+91 9823066666"
+    },
+    {
+      "id": "user_admin",
+      "displayName": "Dr. V. P. Patil (Admin)",
+      "role": "admin",
+      "designation": "Campus Platform Administrator & Faculty Incharge",
+      "hostelAssignment": "None",
+      "verified": true,
+      "email": "admin.campushub@aitpune.edu.in",
+      "phone": "+91 9823077777"
+    }
+  ],
+  "communities": [
+    {
+      "id": "comm_fe",
+      "name": "FE Announcements",
+      "slug": "fe-announcements",
+      "category": "fe",
+      "description": "Official academic notices, timetable circulars, and university guidelines for First Year Engineering students.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": true,
+      "isDemo": true
+    },
+    {
+      "id": "comm_dept-it",
+      "name": "Information Technology (IT)",
+      "slug": "dept-it",
+      "category": "department",
+      "departmentCode": "IT",
+      "description": "Academic hub, laboratory schedules, project submissions, and seminar notices for Information Technology (IT).",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": true,
+      "isDemo": true
+    },
+    {
+      "id": "comm_dept-comp",
+      "name": "Computer Engineering (COMP)",
+      "slug": "dept-comp",
+      "category": "department",
+      "departmentCode": "COMP",
+      "description": "Academic hub, laboratory schedules, project submissions, and seminar notices for Computer Engineering (COMP).",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": true,
+      "isDemo": true
+    },
+    {
+      "id": "comm_dept-entc",
+      "name": "Electronics and Telecommunication (ENTC)",
+      "slug": "dept-entc",
+      "category": "department",
+      "departmentCode": "ENTC",
+      "description": "Academic hub, laboratory schedules, project submissions, and seminar notices for Electronics and Telecommunication (ENTC).",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": true,
+      "isDemo": true
+    },
+    {
+      "id": "comm_dept-mech",
+      "name": "Mechanical Engineering (MECH)",
+      "slug": "dept-mech",
+      "category": "department",
+      "departmentCode": "MECH",
+      "description": "Academic hub, laboratory schedules, project submissions, and seminar notices for Mechanical Engineering (MECH).",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": true,
+      "isDemo": true
+    },
+    {
+      "id": "comm_dept-are",
+      "name": "Automation and Robotics Engineering (ARE)",
+      "slug": "dept-are",
+      "category": "department",
+      "departmentCode": "ARE",
+      "description": "Academic hub, laboratory schedules, project submissions, and seminar notices for Automation and Robotics Engineering (ARE).",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": true,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_1",
+      "name": "AR-VR",
+      "slug": "club-ar-vr",
+      "category": "club",
+      "description": "Official campus communication channel for AR-VR. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_2",
+      "name": "Astronomy Club",
+      "slug": "club-astronomy-club",
+      "category": "club",
+      "description": "Official campus communication channel for Astronomy Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_3",
+      "name": "Centre of Excellence for AI & Robotics",
+      "slug": "club-centre-of-excellence-for-ai-robotics",
+      "category": "club",
+      "description": "Official campus communication channel for Centre of Excellence for AI & Robotics. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_4",
+      "name": "Code Programming Club",
+      "slug": "club-code-programming-club",
+      "category": "club",
+      "description": "Official campus communication channel for Code Programming Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_5",
+      "name": "College Innovation Development Club (CIDC)",
+      "slug": "club-college-innovation-development-club-cidc",
+      "category": "club",
+      "description": "Official campus communication channel for College Innovation Development Club (CIDC). Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_6",
+      "name": "Cultural & Musical Board",
+      "slug": "club-cultural-musical-board",
+      "category": "club",
+      "description": "Official campus communication channel for Cultural & Musical Board. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_7",
+      "name": "Cycling Club",
+      "slug": "club-cycling-club",
+      "category": "club",
+      "description": "Official campus communication channel for Cycling Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_8",
+      "name": "Debate, Quiz & Dramatics Clubs",
+      "slug": "club-debate-quiz-dramatics-clubs",
+      "category": "club",
+      "description": "Official campus communication channel for Debate, Quiz & Dramatics Clubs. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_9",
+      "name": "Drone Club",
+      "slug": "club-drone-club",
+      "category": "club",
+      "description": "Official campus communication channel for Drone Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_10",
+      "name": "EV Cell",
+      "slug": "club-ev-cell",
+      "category": "club",
+      "description": "Official campus communication channel for EV Cell. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_11",
+      "name": "Film Club",
+      "slug": "club-film-club",
+      "category": "club",
+      "description": "Official campus communication channel for Film Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_12",
+      "name": "Fine Arts Club",
+      "slug": "club-fine-arts-club",
+      "category": "club",
+      "description": "Official campus communication channel for Fine Arts Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_13",
+      "name": "Google Development Student Club (GDSC)",
+      "slug": "club-google-development-student-club-gdsc",
+      "category": "club",
+      "description": "Official campus communication channel for Google Development Student Club (GDSC). Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_14",
+      "name": "I & E Cell",
+      "slug": "club-i-e-cell",
+      "category": "club",
+      "description": "Official campus communication channel for I & E Cell. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_15",
+      "name": "Information Security & Digital Forensic Club",
+      "slug": "club-information-security-digital-forensic-club",
+      "category": "club",
+      "description": "Official campus communication channel for Information Security & Digital Forensic Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_16",
+      "name": "Magazine Board",
+      "slug": "club-magazine-board",
+      "category": "club",
+      "description": "Official campus communication channel for Magazine Board. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_17",
+      "name": "Music and Dance Club",
+      "slug": "club-music-and-dance-club",
+      "category": "club",
+      "description": "Official campus communication channel for Music and Dance Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_18",
+      "name": "Nature Club",
+      "slug": "club-nature-club",
+      "category": "club",
+      "description": "Official campus communication channel for Nature Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_19",
+      "name": "NSS Club",
+      "slug": "club-nss-club",
+      "category": "club",
+      "description": "Official campus communication channel for NSS Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_20",
+      "name": "OSS Club",
+      "slug": "club-oss-club",
+      "category": "club",
+      "description": "Official campus communication channel for OSS Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_21",
+      "name": "Press News Cell",
+      "slug": "club-press-news-cell",
+      "category": "club",
+      "description": "Official campus communication channel for Press News Cell. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_22",
+      "name": "Public Relation (PR)",
+      "slug": "club-public-relation-pr",
+      "category": "club",
+      "description": "Official campus communication channel for Public Relation (PR). Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_23",
+      "name": "R&D Cell",
+      "slug": "club-r-d-cell",
+      "category": "club",
+      "description": "Official campus communication channel for R&D Cell. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_24",
+      "name": "Radio Club",
+      "slug": "club-radio-club",
+      "category": "club",
+      "description": "Official campus communication channel for Radio Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_25",
+      "name": "SAE – AIT Collegiate Club",
+      "slug": "club-sae-ait-collegiate-club",
+      "category": "club",
+      "description": "Official campus communication channel for SAE – AIT Collegiate Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_26",
+      "name": "Social Media Cell",
+      "slug": "club-social-media-cell",
+      "category": "club",
+      "description": "Official campus communication channel for Social Media Cell. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_27",
+      "name": "Spiritual Club",
+      "slug": "club-spiritual-club",
+      "category": "club",
+      "description": "Official campus communication channel for Spiritual Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_28",
+      "name": "Sports Club",
+      "slug": "club-sports-club",
+      "category": "club",
+      "description": "Official campus communication channel for Sports Club. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_club_29",
+      "name": "Technical & Maths Board",
+      "slug": "club-technical-maths-board",
+      "category": "club",
+      "description": "Official campus communication channel for Technical & Maths Board. Open to all students for updates, workshops, and recruitment news.",
+      "isRestricted": false,
+      "allowedRoles": [
+        "all"
+      ],
+      "isOfficialSource": false,
+      "isDemo": true
+    },
+    {
+      "id": "comm_hostel_girls",
+      "name": "Girls' Hostel",
+      "slug": "hostel-girls",
+      "category": "hostel",
+      "hostelAssignment": "Girls' Hostel",
+      "description": "Restricted community for Girls' Hostel residents and authorized wardens. Maintenance, curfew notices, mess menus, and hostel announcements.",
+      "isRestricted": true,
+      "allowedHostel": "Girls' Hostel",
+      "isOfficialSource": true,
+      "isDemo": true
+    },
+    {
+      "id": "comm_hostel_boys",
+      "name": "Boys' Hostel",
+      "slug": "hostel-boys",
+      "category": "hostel",
+      "hostelAssignment": "Boys' Hostel",
+      "description": "Restricted community for Boys' Hostel residents and authorized wardens. Maintenance, curfew notices, mess menus, and hostel announcements.",
+      "isRestricted": true,
+      "allowedHostel": "Boys' Hostel",
+      "isOfficialSource": true,
+      "isDemo": true
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg_fe_01",
+      "communitySlug": "fe-announcements",
+      "authorId": "user_admin",
+      "authorDisplayName": "Dr. V. P. Patil (Admin)",
+      "roleBadge": "Admin / Faculty Incharge",
+      "title": "[DEMO] End-Semester Practical Examination Schedule 2026",
+      "content": "All FE students are informed that the SPPU Phase-II Practical Examination schedule has been released on the college portal. Please verify your batch slots and report with completed laboratory journals.",
+      "type": "notice",
+      "isOfficial": true,
+      "isPinned": true,
+      "createdAt": "2026-10-10T09:30:00Z",
+      "isDemo": true
+    },
+    {
+      "id": "msg_comp_01",
+      "communitySlug": "dept-comp",
+      "authorId": "user_faculty_deshmukh",
+      "authorDisplayName": "Prof. K. S. Deshmukh",
+      "roleBadge": "HOD Computer Engineering",
+      "title": "[DEMO] Final Year Major Project Review-II Announcement",
+      "content": "BE Computer Engineering project teams must submit their mid-term progress reports by Friday 17:00 IST. The evaluation committee will assess GitHub commit history, architecture diagrams, and hardware integration status.",
+      "type": "notice",
+      "isOfficial": true,
+      "isPinned": true,
+      "createdAt": "2026-10-09T14:15:00Z",
+      "isDemo": true
+    },
+    {
+      "id": "msg_gdsc_01",
+      "communitySlug": "club-google-development-student-club-gdsc",
+      "authorId": "user_club_lead_aarav",
+      "authorDisplayName": "Aarav Kulkarni",
+      "roleBadge": "GDSC Lead",
+      "title": "[DEMO] Google Cloud Study Jam 2026 & AI Workshop",
+      "content": "We are kicking off the Annual GDSC Cloud Study Jam! Hands-on labs covering Vertex AI, Cloud Run, and Gemini API integration. Registered participants will receive complimentary skill badges and credits.",
+      "type": "announcement",
+      "isOfficial": true,
+      "isPinned": true,
+      "createdAt": "2026-10-11T10:00:00Z",
+      "isDemo": true
+    },
+    {
+      "id": "msg_hg_01",
+      "communitySlug": "hostel-girls",
+      "authorId": "user_warden_patil",
+      "authorDisplayName": "Dr. Sunita Patil",
+      "roleBadge": "Girls' Hostel Warden",
+      "title": "[DEMO] [RESTRICTED] Solar Water Heater Maintenance & Inspection",
+      "content": "Maintenance of the A-Wing and B-Wing solar heating system will be conducted tomorrow between 10:00 AM and 01:00 PM. Hot water supply will resume normal operation by 2:00 PM.",
+      "type": "notice",
+      "isOfficial": true,
+      "isPinned": true,
+      "createdAt": "2026-10-11T08:00:00Z",
+      "isDemo": true
+    },
+    {
+      "id": "msg_hb_01",
+      "communitySlug": "hostel-boys",
+      "authorId": "user_warden_singh",
+      "authorDisplayName": "Col. R. K. Singh",
+      "roleBadge": "Boys' Hostel Warden",
+      "title": "[DEMO] [RESTRICTED] Mess Committee Review Meeting and Wi-Fi Upgrade",
+      "content": "The monthly hostel mess review will convene this Thursday at 19:30 hrs in the Ramanujam Hall. Wing representatives must submit student feedback on dietary requirements.",
+      "type": "notice",
+      "isOfficial": true,
+      "isPinned": true,
+      "createdAt": "2026-10-11T08:30:00Z",
+      "isDemo": true
+    },
+    {
+      "id": "msg_robotics_01",
+      "communitySlug": "club-centre-of-excellence-for-ai-robotics",
+      "authorId": "user_stu_ananya",
+      "authorDisplayName": "Ananya Sharma",
+      "roleBadge": "Student Member",
+      "title": "[DEMO] Autonomous Quadruped Robot Hardware Testing",
+      "content": "The robotics lab is testing the ROS2 Humble navigational stack on our quadruped platform today. Anyone interested in sensor fusion with LiDAR is welcome to observe at Lab 304.",
+      "type": "discussion",
+      "isOfficial": false,
+      "isPinned": false,
+      "createdAt": "2026-10-11T12:00:00Z",
+      "isDemo": true
+    },
+    {
+      "id": "msg_it_01",
+      "communitySlug": "dept-it",
+      "authorId": "user_admin",
+      "authorDisplayName": "Dr. V. P. Patil (Admin)",
+      "roleBadge": "Administrator",
+      "title": "[DEMO] High Performance Computing (HPC) Cluster Access for Research",
+      "content": "IT Department research students working on Deep Learning or Computer Vision projects can now request SSH credentials for the newly installed NVIDIA cluster.",
+      "type": "notice",
+      "isOfficial": true,
+      "isPinned": false,
+      "createdAt": "2026-10-08T11:00:00Z",
+      "isDemo": true
+    }
+  ],
+  "replies": [
+    {
+      "id": "rep_01",
+      "messageId": "msg_robotics_01",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "content": "I will be there with the LiDAR point cloud visualization script on ROS2 RViz!",
+      "createdAt": "2026-10-11T12:30:00Z",
+      "isDemo": true
+    }
+  ],
+  "readStates": [
+    {
+      "id": "rd_01",
+      "userId": "user_stu_ananya",
+      "messageId": "msg_fe_01",
+      "readAt": "2026-10-10T10:00:00Z"
+    }
+  ],
+  "savedItems": [
+    {
+      "id": "sv_01",
+      "userId": "user_stu_ananya",
+      "messageId": "msg_fe_01",
+      "savedAt": "2026-10-10T10:05:00Z"
+    }
+  ],
+  "ideas": [
+    {
+      "id": "idea_01",
+      "title": "[DEMO] Edge-AI Autonomous Border Surveillance Drone",
+      "description": "Developing a localized low-latency drone swarm tracking system using Jetson Orin Nano with thermal and infrared cameras for night perimeter security at rugged terrains.",
+      "category": "Defense Tech",
+      "tags": [
+        "Defense",
+        "Embedded Systems",
+        "Computer Vision",
+        "ROS2"
+      ],
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "seekingTeammates": true,
+      "neededSkills": [
+        "Embedded C++",
+        "PyTorch Model Optimization",
+        "PCB Design"
+      ],
+      "status": "In Development",
+      "likesCount": 18,
+      "createdAt": "2026-10-05T10:00:00Z",
+      "isDemo": true
+    },
+    {
+      "id": "idea_02",
+      "title": "[DEMO] Smart Campus Microgrid & Solar Energy Forecasting",
+      "description": "Using transformer models to forecast AIT Pune academic block solar power generation and automatically balance hostel backup battery distribution in real time.",
+      "category": "CleanTech",
+      "tags": [
+        "IoT",
+        "Energy",
+        "Time Series ML",
+        "ESP32"
+      ],
+      "authorId": "user_stu_ananya",
+      "authorDisplayName": "Ananya Sharma",
+      "seekingTeammates": true,
+      "neededSkills": [
+        "Microcontroller Firmware",
+        "React Dashboard",
+        "FastAPI"
+      ],
+      "status": "Active",
+      "likesCount": 24,
+      "createdAt": "2026-10-07T14:30:00Z",
+      "isDemo": true
+    },
+    {
+      "id": "idea_03",
+      "title": "[DEMO] MediAssist: Offline Clinical Decision Support for Rural Camps",
+      "description": "Quantized LLM running locally on Android tablets to help medical corps personnel triage symptoms, recommend initial treatment protocols, and catalog inventory during field drills.",
+      "category": "Healthcare & AI",
+      "tags": [
+        "Offline AI",
+        "Android",
+        "LLM Quantization",
+        "Healthcare"
+      ],
+      "authorId": "user_stu_fe",
+      "authorDisplayName": "Divya Nair",
+      "seekingTeammates": false,
+      "neededSkills": [],
+      "status": "Active",
+      "likesCount": 12,
+      "createdAt": "2026-10-08T16:00:00Z",
+      "isDemo": true
+    }
+  ],
+  "ideaLikes": [
+    {
+      "id": "lk_1791732880441",
+      "ideaId": "idea_01",
+      "userId": "user_stu_ananya"
+    }
+  ],
+  "ideaComments": [
+    {
+      "id": "ic_01",
+      "ideaId": "idea_01",
+      "authorId": "user_faculty_deshmukh",
+      "authorDisplayName": "Prof. K. S. Deshmukh",
+      "content": "Excellent problem statement. Have you considered thermal signature drift during high wind conditions?",
+      "createdAt": "2026-10-06T11:00:00Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj_01",
+      "title": "[DEMO] Project Garuda: Autonomous Fixed-Wing Aerial Vehicle",
+      "description": "Designed and fabricated by AIT students for UAV reconnaissance competitions. Features fail-safe return-to-home, 45-minute endurance, and custom carbon-composite airframe.",
+      "category": "Aerospace & Robotics",
+      "leadDisplayName": "Rohan Verma & SAE Team",
+      "liveUrl": "https://github.com/ait-garuda-demo",
+      "repoUrl": "https://github.com/ait-garuda-demo",
+      "status": "Completed",
+      "milestones": [
+        {
+          "title": "Airframe Aerodynamic Simulation",
+          "completed": true,
+          "date": "2026-03-15"
+        },
+        {
+          "title": "Autopilot Hardware-in-the-Loop Testing",
+          "completed": true,
+          "date": "2026-06-20"
+        },
+        {
+          "title": "Field Endurance Flight at Range",
+          "completed": true,
+          "date": "2026-09-10"
+        }
+      ],
+      "isDemo": true
+    },
+    {
+      "id": "proj_02",
+      "title": "[DEMO] AIT Campus Indoor Navigation & Asset Locator",
+      "description": "Ultra-wideband (UWB) and Bluetooth Low Energy beacons deployed across Ramanujan Block and Library for indoor pathfinding and laboratory equipment tracking.",
+      "category": "Smart Campus",
+      "leadDisplayName": "Ananya Sharma",
+      "liveUrl": "https://campus-nav-demo.aitpune.local",
+      "repoUrl": "https://github.com/ait-indoor-nav",
+      "status": "In Development",
+      "milestones": [
+        {
+          "title": "Beacon Propagation Modeling",
+          "completed": true,
+          "date": "2026-07-01"
+        },
+        {
+          "title": "Mobile SDK & Floor Maps Digitization",
+          "completed": true,
+          "date": "2026-08-15"
+        },
+        {
+          "title": "Final Year Building Integration",
+          "completed": false,
+          "date": "2026-11-01"
+        }
+      ],
+      "isDemo": true
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "opp_1791732880438",
+      "title": "[DEMO] Cloud Engineering Mentorship Role",
+      "company": "Microsoft India",
+      "authorDisplayName": "Priya Rathore",
+      "authorId": "user_alumni_priya",
+      "role": "Mentee / Intern",
+      "location": "Pune / Remote",
+      "type": "Internship",
+      "stipend": "Competitive",
+      "description": "Verified alumni mentorship opening.",
+      "deadline": "Open until filled",
+      "isVerified": true,
+      "isDemo": false
+    },
+    {
+      "id": "opp_1791732438805",
+      "title": "[DEMO] Cloud Engineering Mentorship Role",
+      "company": "Microsoft India",
+      "authorDisplayName": "Priya Rathore",
+      "authorId": "user_alumni_priya",
+      "role": "Mentee / Intern",
+      "location": "Pune / Remote",
+      "type": "Internship",
+      "stipend": "Competitive",
+      "description": "Verified alumni mentorship opening.",
+      "deadline": "Open until filled",
+      "isVerified": true,
+      "isDemo": false
+    },
+    {
+      "id": "opp_01",
+      "title": "[DEMO] Cloud Systems & Distributed Storage Engineering Internship",
+      "company": "Microsoft India (Azure Team)",
+      "authorDisplayName": "Priya Rathore",
+      "authorId": "user_alumni_priya",
+      "role": "Software Engineer Intern",
+      "location": "Hyderabad / Hybrid",
+      "type": "Internship (6 Months)",
+      "stipend": "₹85,000 / month",
+      "description": "Exclusive referral and evaluation opportunity for AIT 3rd and 4th year students. Focus on high-throughput backend services, C++ / Golang, and distributed consensus.",
+      "deadline": "2026-11-15",
+      "isVerified": true,
+      "isDemo": true
+    },
+    {
+      "id": "opp_02",
+      "title": "[DEMO] Autonomous Drone Flight Control Research Grant & Fellowship",
+      "company": "Defense Innovation Organization & AIT R&D Cell",
+      "authorDisplayName": "Prof. K. S. Deshmukh",
+      "authorId": "user_faculty_deshmukh",
+      "role": "Student Research Fellow",
+      "location": "AIT Campus Lab 304",
+      "type": "Research Fellowship",
+      "stipend": "₹25,000 / month",
+      "description": "Funded research position to assist with obstacle avoidance algorithms on micro-drones. Hands-on testing and flight tests conducted on campus grounds.",
+      "deadline": "2026-10-30",
+      "isVerified": true,
+      "isDemo": true
+    }
+  ],
+  "applications": [
+    {
+      "id": "app_01",
+      "opportunityId": "opp_01",
+      "applicantId": "user_stu_rohan",
+      "applicantDisplayName": "Rohan Verma",
+      "coverNote": "Interested in distributed storage and consensus protocols. Built Project Garuda with ROS2/C++.",
+      "resumeUrl": "https://example.com/rohan-resume-demo.pdf",
+      "status": "Under Review",
+      "appliedAt": "2026-10-10T16:00:00Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif_01",
+      "userId": "user_stu_ananya",
+      "title": "Official Academic Notice",
+      "content": "SPPU Practical Examination Schedule released in FE Announcements.",
+      "type": "announcement",
+      "link": "/communities/fe-announcements",
+      "isRead": false,
+      "createdAt": "2026-10-10T09:35:00Z"
+    },
+    {
+      "id": "notif_02",
+      "userId": "user_stu_ananya",
+      "title": "Girls' Hostel Maintenance",
+      "content": "Solar Water Heater maintenance scheduled for tomorrow 10:00 AM.",
+      "type": "announcement",
+      "link": "/communities/hostel-girls",
+      "isRead": false,
+      "createdAt": "2026-10-11T08:05:00Z"
+    }
+  ],
+  "alumniVerifications": [
+    {
+      "id": "av_01",
+      "userId": "user_alumni_vikram",
+      "displayName": "Vikram Choudhary",
+      "graduationYear": 2024,
+      "company": "AeroDrone Technologies",
+      "designation": "Co-founder",
+      "linkedInUrl": "https://linkedin.com/in/vikram-demo",
+      "status": "pending",
+      "submittedAt": "2026-10-09T10:00:00Z"
+    }
+  ],
+  "notificationPreferences": {
+    "announcements": true,
+    "hostel": true,
+    "opportunities": true,
+    "mentions": true
+  }
+}
