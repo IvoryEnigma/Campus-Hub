@@ -79,7 +79,7 @@ export default function Header({
                 }}
               >
                 <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>Notifications</span>
-                <span className="badge badge-demo">DEMO</span>
+
               </div>
 
               {notifications.length === 0 ? (

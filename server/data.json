@@ -15,7 +15,7 @@
     },
     {
       "id": "user_stu_rohan",
-      "displayName": "Rohan Verma",
+      "displayName": "mohit yadav",
       "role": "student",
       "branch": "Computer Engineering",
       "academicYear": "Fourth Year",
@@ -735,6 +735,28 @@
     }
   ],
   "ideas": [
+    {
+      "id": "idea_1792229463701",
+      "title": "autonomus campus navigation",
+      "description": "what campus and real problem does",
+      "category": "Robotics & Autonomous Systems",
+      "tags": [
+        "ROS2",
+        "Jetson",
+        "AI"
+      ],
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "mohit yadav",
+      "seekingTeammates": true,
+      "neededSkills": [
+        "Embedded C++",
+        "PyTorch"
+      ],
+      "status": "Active",
+      "likesCount": 0,
+      "createdAt": "2026-10-17T09:31:03.701Z",
+      "isDemo": false
+    },
     {
       "id": "idea_1791778660395",
       "title": "[INNOVATION] Mesh WiFi Node Routing for Hostels",
