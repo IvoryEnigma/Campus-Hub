@@ -162,8 +162,150 @@ async function runTests() {
     '10. Innovation Hub ideas, projects, likes, and comments are fully intact and functional'
   );
 
+  // ====================================================
+  // CAMPUS PROBLEMS MODULE TESTS (PHASE 3 & 4)
+  // ====================================================
+
+  // 11. Verify exactly the 4 Demo Problems are seeded and labeled DEMO
+  const demoProblems = db.getCampusProblems(studentFemale, {});
+  const p1 = demoProblems.find(p => p.id === 'prob_01');
+  const p2 = demoProblems.find(p => p.id === 'prob_02');
+  const p3 = demoProblems.find(p => p.id === 'prob_03');
+  const p4 = demoProblems.find(p => p.id === 'prob_04');
+  assert(
+    demoProblems.length >= 4 && p1 && p2 && p3 && p4,
+    '11. Exactly the 4 required Demo Problems are seeded in the database'
+  );
+  assert(
+    p1.isDemo && p2.isDemo && p3.isDemo && p4.isDemo,
+    '11b. All demo problems are explicitly marked isDemo: true'
+  );
+
+  // 12. Verify Vending Machine solution details (snacks/drinks only, NO bottled water, marked to be estimated)
+  const p1Solutions = db.getProblemSolutions(studentFemale, 'prob_01');
+  const vendingSol = p1Solutions[0];
+  const itemsText = (vendingSol?.details?.itemsList || '').toLowerCase();
+  const allDetailsText = JSON.stringify(vendingSol?.details || {}).toLowerCase();
+  assert(
+    !!vendingSol &&
+    itemsText.includes('no bottled water') &&
+    allDetailsText.includes('to be estimated'),
+    '12. Demo Problem 1 vending machine solution has NO bottled water and costs marked "to be estimated"'
+  );
+
+  // 13. Student can post a problem
+  const newProb = db.createCampusProblem(studentMale, {
+    title: 'Test Problem by Rohan',
+    description: 'Testing problem creation from male student',
+    category: 'Internet/WiFi',
+    location: 'OBH Block C',
+    timeOfDayAffected: 'Evening (8 PM - 11 PM)',
+    whoAffected: 'OBH Residents',
+    severity: 'medium',
+    scope: "Boys' Hostel",
+    isAnonymous: false,
+  });
+  assert(
+    !!newProb && newProb.authorId === studentMale.id && newProb.status === 'Open',
+    '13. Student can successfully create a new campus problem with default status "Open"'
+  );
+
+  // 14. Student can vote "I face this too" (one vote per user, togglable)
+  // studentFemale has not voted on p4 yet
+  const initialVotes = p4.upvotesCount;
+  const vote1 = db.toggleVoteProblem(studentFemale, p4.id);
+  assert(vote1.hasVoted === true && vote1.upvotesCount === initialVotes + 1, '14. Student can vote "I face this too" (1 vote recorded)');
+  const vote2 = db.toggleVoteProblem(studentFemale, p4.id);
+  assert(vote2.hasVoted === false && vote2.upvotesCount === initialVotes, '14b. Toggling vote removes it without duplicate counts');
+
+  // 15. Student can comment on a problem
+  const newComment = db.addProblemComment(studentMale, newProb.id, 'I have also experienced this packet drop issue.');
+  const allComments = db.getProblemComments(newProb.id);
+  assert(
+    !!newComment && allComments.some(c => c.id === newComment.id),
+    '15. Student can successfully add a comment to a campus problem'
+  );
+
+  // 16. Student CANNOT change status (only admins/staff can set Under Review, Resolved, Closed)
+  try {
+    db.changeProblemStatus(studentMale, newProb.id, 'Resolved');
+    assert(false, '16. Student cannot change problem status', 'Normal student changed status to Resolved');
+  } catch (err) {
+    assert(
+      err.message.includes('Unauthorized'),
+      '16. Normal student is blocked from changing problem status (Only staff/admin permitted)'
+    );
+  }
+
+  // Admin CAN change problem status
+  const resolvedProb = db.changeProblemStatus(adminUser, newProb.id, 'Resolved');
+  assert(
+    resolvedProb.status === 'Resolved',
+    '16b. Admin can successfully change problem status to Resolved'
+  );
+
+  // 17. Hostel problems are not visible across hostels (Boys' and Girls' stay isolated)
+  const girlsOnlyProb = db.createCampusProblem(studentFemale, {
+    title: 'Girls Hostel Wing A Water Heater Check',
+    description: 'Geyser timer check in Wing A',
+    category: 'Hostel Life',
+    location: "Girls' Hostel Wing A",
+    scope: "Girls' Hostel",
+  });
+  const femaleList = db.getCampusProblems(studentFemale, {});
+  const maleList = db.getCampusProblems(studentMale, {});
+  const femaleCanSeeGirls = femaleList.some(p => p.id === girlsOnlyProb.id);
+  const maleCanSeeGirls = maleList.some(p => p.id === girlsOnlyProb.id);
+
+  assert(
+    femaleCanSeeGirls === true && maleCanSeeGirls === false,
+    "17. Hostel problems are strictly isolated (Girls' Hostel problems invisible to Boys' Hostel residents)"
+  );
+
+  // 18. Anonymous posts hide the author from other students
+  const anonProb = db.createCampusProblem(studentMale, {
+    title: 'Confidential Feedback on Mess Quality',
+    description: 'Anonymous mess feedback',
+    category: 'Food & Cafeteria',
+    location: 'College Mess Dining Hall',
+    scope: 'Whole campus',
+    isAnonymous: true,
+  });
+  const peerViewList = db.getCampusProblems(studentFemale, {});
+  const anonViewedByPeer = peerViewList.find(p => p.id === anonProb.id);
+  const adminViewList = db.getCampusProblems(adminUser, {});
+  const anonViewedByAdmin = adminViewList.find(p => p.id === anonProb.id);
+
+  assert(
+    anonViewedByPeer.authorName === 'Anonymous Student' &&
+    anonViewedByPeer.authorId === undefined &&
+    anonViewedByAdmin.authorName.includes('Rohan') &&
+    anonViewedByAdmin.isAnonymous === true,
+    '18. Anonymous problem hides author identity from students while keeping it visible to moderators'
+  );
+
+  // 19. A solution can be converted into an Innovation Hub idea (linking to existing record without duplicates)
+  const sol = db.proposeSolution(studentMale, p2.id, {
+    title: 'Mesh WiFi Node Routing for Hostels',
+    description: 'Deploy dual-band mesh nodes in corridor intersections to eliminate room dead zones.',
+  });
+  assert(!!sol && sol.id, '19a. Student can propose a solution to a campus problem');
+
+  const convertedIdea = db.convertSolutionToIdea(studentMale, p2.id, sol.id);
+  assert(
+    !!convertedIdea && convertedIdea.linkedProblemId === p2.id && convertedIdea.linkedSolutionId === sol.id,
+    '19b. Solution successfully converted into Innovation Hub idea'
+  );
+
+  // Converting again returns the existing linked idea without duplicates
+  const secondAttempt = db.convertSolutionToIdea(studentMale, p2.id, sol.id);
+  assert(
+    secondAttempt.id === convertedIdea.id,
+    '19c. Duplicate conversion prevented (returns existing linked idea record)'
+  );
+
   console.log('\n====================================================');
-  console.log(` TEST SUMMARY: ${passedTests}/${totalTests} Passed (${failedTests} Failed)`);
+  console.log(` ALL TESTS COMPLETE: ${passedTests}/${totalTests} Passed (${failedTests} Failed)`);
   console.log('====================================================\n');
 
   if (failedTests > 0) {

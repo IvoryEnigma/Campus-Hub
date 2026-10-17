@@ -6,12 +6,13 @@ import InboxView from './components/InboxView';
 import CommunitiesView from './components/CommunitiesView';
 import CommunityDetailView from './components/CommunityDetailView';
 import HostelView from './components/HostelView';
+import CampusProblemsView from './components/CampusProblemsView';
 import InnovationHubView from './components/InnovationHubView';
 import SavedView from './components/SavedView';
 import ProfileView from './components/ProfileView';
 import AdminModerationView from './components/AdminModerationView';
 import NewIdeaModal from './components/NewIdeaModal';
-import { api, setActiveUserId } from './api';
+import { api } from './api';
 
 export default function App() {
   const [currentView, setCurrentView] = useState('home');
@@ -22,6 +23,7 @@ export default function App() {
   const [inboxData, setInboxData] = useState({ messages: [], counts: {} });
   const [ideas, setIdeas] = useState([]);
   const [opportunities, setOpportunities] = useState([]);
+  const [problems, setProblems] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showNewIdeaModal, setShowNewIdeaModal] = useState(false);
@@ -30,7 +32,7 @@ export default function App() {
   // Initialize application state
   const loadInitialData = async () => {
     try {
-      const [meRes, usersRes, commRes, inboxRes, ideasRes, oppsRes, notifsRes] =
+      const [meRes, usersRes, commRes, inboxRes, ideasRes, oppsRes, problemsRes, notifsRes] =
         await Promise.all([
           api.getMe(),
           api.getDemoAccounts(),
@@ -38,6 +40,7 @@ export default function App() {
           api.getInbox(),
           api.getIdeas(),
           api.getOpportunities(),
+          api.getProblems(),
           api.getNotifications(),
         ]);
 
@@ -47,6 +50,7 @@ export default function App() {
       setInboxData(inboxRes);
       setIdeas(ideasRes.ideas || []);
       setOpportunities(oppsRes.opportunities || []);
+      setProblems(problemsRes.problems || []);
       setNotifications(notifsRes.notifications || []);
     } catch (err) {
       console.error('Error fetching initial data:', err);
@@ -72,12 +76,14 @@ export default function App() {
 
   const handleRefreshInbox = async () => {
     try {
-      const [inboxRes, commRes] = await Promise.all([
+      const [inboxRes, commRes, problemsRes] = await Promise.all([
         api.getInbox(),
         api.getCommunities(),
+        api.getProblems(),
       ]);
       setInboxData(inboxRes);
       setCommunities(commRes.communities || []);
+      setProblems(problemsRes.problems || []);
     } catch (err) {
       console.error(err);
     }
@@ -93,6 +99,7 @@ export default function App() {
   const handleSelectCommunity = (slug) => {
     setSelectedCommunitySlug(slug);
     setCurrentView('community-detail');
+    setSidebarOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -135,6 +142,8 @@ export default function App() {
         onNavigate={handleNavigate}
         currentUser={currentUser}
         unreadCount={inboxData?.counts?.unread || 0}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
 
       {/* Main Content Area */}
@@ -156,6 +165,7 @@ export default function App() {
               inboxData={inboxData}
               ideas={ideas}
               opportunities={opportunities}
+              problems={problems}
               onNavigate={handleNavigate}
               onOpenNewIdea={() => setShowNewIdeaModal(true)}
             />
@@ -209,6 +219,13 @@ export default function App() {
               currentUser={currentUser}
               communities={communities}
               onRefreshInbox={handleRefreshInbox}
+            />
+          )}
+
+          {currentView === 'campus-problems' && (
+            <CampusProblemsView
+              currentUser={currentUser}
+              onNavigateToInnovation={() => handleNavigate('innovation')}
             />
           )}
 

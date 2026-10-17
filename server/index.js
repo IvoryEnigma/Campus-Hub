@@ -38,14 +38,12 @@ app.get('/api/auth/me', (req, res) => {
   if (!req.user) {
     return errorResponse(res, 401, 'User session not found');
   }
-  // Returns safe session object with permissions
   res.json({
     success: true,
     user: db.getPrivateUserProfile(req.user.id),
   });
 });
 
-// Switch active user role for evaluation and testing
 app.post('/api/auth/switch-user', (req, res) => {
   const { userId } = req.body;
   const target = db.findRawUserById(userId);
@@ -58,9 +56,7 @@ app.post('/api/auth/switch-user', (req, res) => {
   });
 });
 
-// List demo users for quick role testing
 app.get('/api/users/demo-accounts', (req, res) => {
-  // Returns list of available demo personas
   const personas = db.data.users.map((u) => ({
     id: u.id,
     displayName: u.displayName,
@@ -72,7 +68,6 @@ app.get('/api/users/demo-accounts', (req, res) => {
   res.json({ success: true, personas });
 });
 
-// Public profile endpoint (strictly sanitizes and protects privacy)
 app.get('/api/users/public/:id', (req, res) => {
   const sanitized = db.findUserById(req.params.id);
   if (!sanitized) {
@@ -81,7 +76,6 @@ app.get('/api/users/public/:id', (req, res) => {
   res.json({ success: true, user: sanitized });
 });
 
-// Current user private profile
 app.get('/api/users/profile', (req, res) => {
   if (!req.user) return errorResponse(res, 401, 'Unauthorized');
   const profile = db.getPrivateUserProfile(req.user.id);
@@ -232,7 +226,6 @@ app.get('/api/inbox', (req, res) => {
 
   const messages = db.getMessages(req.user, filters);
 
-  // Compute inbox summary counts
   const allMessages = db.getMessages(req.user, {});
   const unreadCount = allMessages.filter((m) => !m.isRead).length;
   const pinnedCount = allMessages.filter((m) => m.isPinned).length;
@@ -404,6 +397,136 @@ app.get('/api/notifications', (req, res) => {
 app.post('/api/notifications/:id/read', (req, res) => {
   const success = db.markNotificationRead(req.user, req.params.id);
   res.json({ success });
+});
+
+// ========================================================
+// 10. CAMPUS PROBLEMS MODULE (PHASE 3)
+// ========================================================
+
+app.get('/api/problems', (req, res) => {
+  try {
+    const { category, status, scope, search, sort } = req.query;
+    const problems = db.getCampusProblems(req.user, {
+      category,
+      status,
+      scope,
+      search,
+      sort,
+    });
+    res.json({ success: true, problems });
+  } catch (err) {
+    return errorResponse(res, 500, err.message);
+  }
+});
+
+app.get('/api/problems/:id', (req, res) => {
+  try {
+    const prob = db.getCampusProblemById(req.user, req.params.id);
+    if (!prob) return errorResponse(res, 404, 'Campus problem not found');
+    res.json({ success: true, problem: prob });
+  } catch (err) {
+    const status = err.message.includes('Access denied') ? 403 : 500;
+    return errorResponse(res, status, err.message);
+  }
+});
+
+app.post('/api/problems', (req, res) => {
+  if (!req.user) return errorResponse(res, 401, 'Authentication required');
+  try {
+    const newProb = db.createCampusProblem(req.user, req.body);
+    res.status(201).json({ success: true, problem: newProb });
+  } catch (err) {
+    const status = err.message.includes('Unauthorized') ? 403 : 400;
+    return errorResponse(res, status, err.message);
+  }
+});
+
+app.post('/api/problems/:id/vote', (req, res) => {
+  if (!req.user) return errorResponse(res, 401, 'Authentication required');
+  try {
+    const result = db.toggleVoteProblem(req.user, req.params.id);
+    res.json({ success: true, ...result });
+  } catch (err) {
+    const status = err.message.includes('Access denied') ? 403 : 400;
+    return errorResponse(res, status, err.message);
+  }
+});
+
+app.post('/api/problems/:id/status', (req, res) => {
+  if (!req.user) return errorResponse(res, 401, 'Authentication required');
+  const { status } = req.body;
+  try {
+    const updated = db.changeProblemStatus(req.user, req.params.id, status);
+    res.json({ success: true, problem: updated });
+  } catch (err) {
+    const statusCode = err.message.includes('Unauthorized') ? 403 : 400;
+    return errorResponse(res, statusCode, err.message);
+  }
+});
+
+app.get('/api/problems/:id/comments', (req, res) => {
+  try {
+    const comments = db.getProblemComments(req.user, req.params.id);
+    res.json({ success: true, comments });
+  } catch (err) {
+    const status = err.message.includes('Access denied') ? 403 : 500;
+    return errorResponse(res, status, err.message);
+  }
+});
+
+app.post('/api/problems/:id/comments', (req, res) => {
+  if (!req.user) return errorResponse(res, 401, 'Authentication required');
+  const { content, isAnonymous } = req.body;
+  try {
+    const comment = db.addProblemComment(req.user, req.params.id, { content, isAnonymous });
+    res.status(201).json({ success: true, comment });
+  } catch (err) {
+    const status = err.message.includes('Access denied') ? 403 : 400;
+    return errorResponse(res, status, err.message);
+  }
+});
+
+app.get('/api/problems/:id/solutions', (req, res) => {
+  try {
+    const solutions = db.getProblemSolutions(req.user, req.params.id);
+    res.json({ success: true, solutions });
+  } catch (err) {
+    const status = err.message.includes('Access denied') ? 403 : 500;
+    return errorResponse(res, status, err.message);
+  }
+});
+
+app.post('/api/problems/:id/solutions', (req, res) => {
+  if (!req.user) return errorResponse(res, 401, 'Authentication required');
+  try {
+    const solution = db.proposeSolution(req.user, req.params.id, req.body);
+    res.status(201).json({ success: true, solution });
+  } catch (err) {
+    const status = err.message.includes('Access denied') ? 403 : 400;
+    return errorResponse(res, status, err.message);
+  }
+});
+
+app.post('/api/problems/:id/convert-to-idea', (req, res) => {
+  if (!req.user) return errorResponse(res, 401, 'Authentication required');
+  const { solutionId } = req.body;
+  try {
+    const idea = db.convertSolutionToIdea(req.user, req.params.id, solutionId);
+    res.json({ success: true, idea });
+  } catch (err) {
+    return errorResponse(res, 400, err.message);
+  }
+});
+
+app.post('/api/problems/:id/report', (req, res) => {
+  if (!req.user) return errorResponse(res, 401, 'Authentication required');
+  const { reason } = req.body;
+  try {
+    const result = db.reportProblem(req.user, req.params.id, reason);
+    res.json({ success: true, ...result });
+  } catch (err) {
+    return errorResponse(res, 400, err.message);
+  }
 });
 
 app.listen(PORT, () => {

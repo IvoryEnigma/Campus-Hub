@@ -133,4 +133,44 @@ export const api = {
   // Notifications
   getNotifications: () => apiRequest('/api/notifications'),
   markNotificationRead: (id) => apiRequest(`/api/notifications/${id}/read`, { method: 'POST' }),
+
+  // Campus Problems (Phase 3)
+  getProblems: (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return apiRequest(`/api/problems${query ? `?${query}` : ''}`);
+  },
+  getProblem: (id) => apiRequest(`/api/problems/${id}`),
+  createProblem: (data) =>
+    apiRequest('/api/problems', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  voteProblem: (id) => apiRequest(`/api/problems/${id}/vote`, { method: 'POST' }),
+  updateProblemStatus: (id, status) =>
+    apiRequest(`/api/problems/${id}/status`, {
+      method: 'POST',
+      body: JSON.stringify({ status }),
+    }),
+  getProblemComments: (id) => apiRequest(`/api/problems/${id}/comments`),
+  addProblemComment: (id, data) =>
+    apiRequest(`/api/problems/${id}/comments`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  getProblemSolutions: (id) => apiRequest(`/api/problems/${id}/solutions`),
+  proposeProblemSolution: (id, data) =>
+    apiRequest(`/api/problems/${id}/solutions`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  convertProblemSolutionToIdea: (id, solutionId) =>
+    apiRequest(`/api/problems/${id}/convert-to-idea`, {
+      method: 'POST',
+      body: JSON.stringify({ solutionId }),
+    }),
+  reportProblem: (id, reason) =>
+    apiRequest(`/api/problems/${id}/report`, {
+      method: 'POST',
+      body: JSON.stringify({ reason }),
+    }),
 };

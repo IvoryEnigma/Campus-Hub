@@ -8,6 +8,8 @@ import {
   getInitialIdeas,
   getInitialProjects,
   getInitialOpportunities,
+  getInitialCampusProblems,
+  getInitialProblemSolutions,
 } from './seedData.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,6 +27,27 @@ class Database {
       try {
         const raw = fs.readFileSync(DATA_FILE, 'utf-8');
         this.data = JSON.parse(raw);
+        // Ensure new collections exist in existing json
+        if (!this.data.campusProblems) {
+          this.data.campusProblems = getInitialCampusProblems();
+        }
+        if (!this.data.problemComments) {
+          this.data.problemComments = [
+            {
+              id: 'pcom_01',
+              problemId: 'prob_01',
+              authorId: 'user_stu_rohan',
+              authorDisplayName: 'Rohan Verma',
+              isAnonymous: false,
+              content: 'Fully agree. During exam preparation past 10 PM, having coffee or light snacks in the hostel common lounge would be a massive relief.',
+              createdAt: '2026-10-10T13:00:00Z',
+            },
+          ];
+        }
+        if (!this.data.problemSolutions) {
+          this.data.problemSolutions = getInitialProblemSolutions();
+        }
+        this.persist();
       } catch (err) {
         console.error('Error parsing data.json, re-seeding:', err);
         this.seed();
@@ -119,11 +142,25 @@ class Database {
           submittedAt: '2026-10-09T10:00:00Z',
         },
       ],
+      campusProblems: getInitialCampusProblems(),
+      problemComments: [
+        {
+          id: 'pcom_01',
+          problemId: 'prob_01',
+          authorId: 'user_stu_rohan',
+          authorDisplayName: 'Rohan Verma',
+          isAnonymous: false,
+          content: 'Fully agree. During exam preparation past 10 PM, having coffee or light snacks in the hostel common lounge would be a massive relief.',
+          createdAt: '2026-10-10T13:00:00Z',
+        },
+      ],
+      problemSolutions: getInitialProblemSolutions(),
       notificationPreferences: {
         announcements: true,
         hostel: true,
         opportunities: true,
         mentions: true,
+        problems: true,
       },
     };
     this.persist();
@@ -155,7 +192,7 @@ class Database {
 
   // MANDATORY PRIVACY REDACTION:
   // Public profiles, lists, comments, and messages must never leak registration numbers,
-  // phone numbers, emails, or personal private details.
+  // phone numbers, emails, branch, academic year, or personal private details.
   sanitizeUser(user) {
     if (!user) return null;
     return {
@@ -169,11 +206,10 @@ class Database {
       graduationYear: user.graduationYear || null,
       managedClub: user.managedClub || null,
       assignedHostel: user.assignedHostel || null,
-      // Private fields (regNumber, email, phone, branch, admissionBatch) omitted
+      // Private fields (regNumber, email, phone, branch, academicYear, admissionBatch) omitted
     };
   }
 
-  // Private profile access - only accessible by the owner themselves or authorized admin
   getPrivateUserProfile(userId) {
     const raw = this.findRawUserById(userId);
     if (!raw) return null;
@@ -186,7 +222,6 @@ class Database {
   updateUserProfile(userId, updates) {
     const user = this.findRawUserById(userId);
     if (!user) return null;
-    // Disallow tampering with role, verified status, or hostelAssignment from normal profile update
     if (updates.displayName) user.displayName = updates.displayName.trim();
     this.persist();
     return this.getPrivateUserProfile(userId);
@@ -197,22 +232,15 @@ class Database {
     if (!community) return false;
     if (!community.isRestricted) return true;
 
-    // Restricted Hostel access check
     if (community.category === 'hostel') {
       if (!user) return false;
-      // Admins have campus-wide access
       if (user.role === 'admin') return true;
-
-      // Wardens have access only to their assigned hostel
       if (user.role === 'warden') {
         return user.assignedHostel === community.hostelAssignment;
       }
-
-      // Students have access strictly to their verified hostel assignment
       if (user.role === 'student') {
         return user.hostelAssignment === community.hostelAssignment;
       }
-
       return false;
     }
 
@@ -234,7 +262,6 @@ class Database {
   getMessages(user, filters = {}) {
     let result = this.data.messages.filter((msg) => {
       const comm = this.findCommunityBySlug(msg.communitySlug);
-      // Strictly filter out messages from communities the user has no access to
       if (!this.checkCommunityAccess(user, comm)) {
         return false;
       }
@@ -283,7 +310,6 @@ class Database {
       result = result.filter((m) => savedMessageIds.has(m.id));
     }
 
-    // Attach enriched metadata
     return result
       .map((m) => ({
         ...m,
@@ -302,17 +328,14 @@ class Database {
     if (!comm) return false;
 
     if (user.role === 'faculty') {
-      // Faculty can publish official in departments or FE
       return comm.category === 'department' || comm.category === 'fe';
     }
 
     if (user.role === 'club_lead') {
-      // Club leads can publish official only in their managed club
       return comm.name === user.managedClub;
     }
 
     if (user.role === 'warden') {
-      // Warden can publish official only in their assigned hostel
       return comm.category === 'hostel' && comm.hostelAssignment === user.assignedHostel;
     }
 
@@ -327,7 +350,6 @@ class Database {
       throw new Error('Access denied to this community');
     }
 
-    // Role check for official notices
     if (isOfficial && !this.canPublishOfficial(user, communitySlug)) {
       throw new Error('Unauthorized: only authorized faculty, club leads, wardens, or admins can publish official notices.');
     }
@@ -552,7 +574,6 @@ class Database {
   createOpportunity(user, oppData) {
     if (!user) throw new Error('Authentication required');
 
-    // Verification check: Only verified alumni, faculty, or admin can post verified opportunities
     const isAuthorized =
       user.role === 'admin' ||
       user.role === 'faculty' ||
@@ -628,7 +649,7 @@ class Database {
       rawUser.graduationYear = Number(graduationYear) || 2024;
       rawUser.company = company.trim();
       rawUser.designation = designation.trim();
-      rawUser.verified = false; // Must be reviewed by admin
+      rawUser.verified = false;
     }
 
     const request = {
@@ -695,6 +716,467 @@ class Database {
       return true;
     }
     return false;
+  }
+
+  createNotification(userId, { title, content, type = 'announcement', link = '' }) {
+    const notif = {
+      id: 'notif_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+      userId,
+      title,
+      content,
+      type,
+      link,
+      isRead: false,
+      createdAt: new Date().toISOString(),
+    };
+    this.data.notifications.unshift(notif);
+    this.persist();
+    return notif;
+  }
+
+  // ========================================================
+  // --- CAMPUS PROBLEMS MODULE (PHASE 3) ---
+  // ========================================================
+
+  canAccessProblemScope(user, scope) {
+    if (!scope || scope === 'Whole campus') return true;
+    if (!user) return false;
+    if (user.role === 'admin') return true;
+
+    if (scope === "Girls' Hostel") {
+      if (user.role === 'warden') return user.assignedHostel === "Girls' Hostel";
+      return user.hostelAssignment === "Girls' Hostel";
+    }
+
+    if (scope === "Boys' Hostel") {
+      if (user.role === 'warden') return user.assignedHostel === "Boys' Hostel";
+      return user.hostelAssignment === "Boys' Hostel";
+    }
+
+    return true;
+  }
+
+  getCampusProblems(user, filters = {}) {
+    let result = (this.data.campusProblems || []).filter((prob) => {
+      // STRICT HOSTEL ISOLATION:
+      if (!this.canAccessProblemScope(user, prob.scope)) {
+        return false;
+      }
+      return true;
+    });
+
+    if (filters.category && filters.category !== 'all') {
+      result = result.filter((p) => p.category.toLowerCase() === filters.category.toLowerCase());
+    }
+
+    if (filters.status && filters.status !== 'all') {
+      result = result.filter((p) => p.status.toLowerCase() === filters.status.toLowerCase());
+    }
+
+    if (filters.scope && filters.scope !== 'all') {
+      result = result.filter((p) => p.scope.toLowerCase() === filters.scope.toLowerCase());
+    }
+
+    if (filters.search) {
+      const q = filters.search.toLowerCase();
+      result = result.filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q) ||
+          p.location.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q)
+      );
+    }
+
+    // Sort: most_affected vs newest
+    if (filters.sort === 'newest') {
+      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else {
+      // Default: most affected (upvotesCount desc)
+      result.sort((a, b) => (b.upvotesCount || 0) - (a.upvotesCount || 0));
+    }
+
+    // Anonymity & Vote status mapping
+    const userId = user ? user.id : '';
+    const isModerator = user && (user.role === 'admin' || user.role === 'faculty');
+
+    return result.map((p) => {
+      const upvotedUserIds = p.upvotedUserIds || [];
+      const hasVoted = upvotedUserIds.includes(userId);
+
+      // Mask author if anonymous and viewer is not moderator
+      const isAnonStudent = p.isAnonymous && !isModerator;
+      const displayAuthor = isAnonStudent
+        ? 'Anonymous Student'
+        : p.authorDisplayName;
+      const safeAuthorId = isAnonStudent ? undefined : p.authorId;
+
+      return {
+        ...p,
+        authorDisplayName: displayAuthor,
+        authorName: displayAuthor,
+        authorId: safeAuthorId,
+        hasVoted,
+        commentsCount: (this.data.problemComments || []).filter((c) => c.problemId === p.id).length,
+        solutionsCount: (this.data.problemSolutions || []).filter((s) => s.problemId === p.id).length,
+      };
+    });
+  }
+
+  getCampusProblemById(user, problemId) {
+    const prob = (this.data.campusProblems || []).find((p) => p.id === problemId);
+    if (!prob) return null;
+
+    if (!this.canAccessProblemScope(user, prob.scope)) {
+      throw new Error('Access denied: This problem is restricted to authorized hostel residents.');
+    }
+
+    const isModerator = user && (user.role === 'admin' || user.role === 'faculty');
+    const isAnonStudent = prob.isAnonymous && !isModerator;
+    const displayAuthor = isAnonStudent
+      ? 'Anonymous Student'
+      : prob.authorDisplayName;
+    const safeAuthorId = isAnonStudent ? undefined : prob.authorId;
+
+    const hasVoted = (prob.upvotedUserIds || []).includes(user ? user.id : '');
+
+    return {
+      ...prob,
+      authorDisplayName: displayAuthor,
+      authorName: displayAuthor,
+      authorId: safeAuthorId,
+      hasVoted,
+      commentsCount: (this.data.problemComments || []).filter((c) => c.problemId === prob.id).length,
+      solutionsCount: (this.data.problemSolutions || []).filter((s) => s.problemId === prob.id).length,
+    };
+  }
+
+  createCampusProblem(user, data) {
+    if (!user) throw new Error('Authentication required');
+
+    const {
+      title,
+      description,
+      category,
+      location,
+      timeOfDayAffected,
+      whoIsAffected,
+      severity = 'medium',
+      photoUrl = '',
+      scope = 'Whole campus',
+      isAnonymous = false,
+    } = data;
+
+    if (!title || !description || !category || !location) {
+      throw new Error('Title, description, category, and location are required.');
+    }
+
+    // Verify hostel scope permission: a user cannot post in a hostel they have no access to
+    if (!this.canAccessProblemScope(user, scope)) {
+      throw new Error(`Unauthorized: You cannot post a problem scoped to ${scope}.`);
+    }
+
+    const newProblem = {
+      id: 'prob_' + Date.now(),
+      title: title.trim(),
+      description: description.trim(),
+      category: category.trim(),
+      location: location.trim(),
+      timeOfDayAffected: (timeOfDayAffected || 'All day').trim(),
+      whoIsAffected: (whoIsAffected || 'All Students').trim(),
+      severity: ['low', 'medium', 'high'].includes(severity) ? severity : 'medium',
+      photoUrl: (photoUrl || '').trim(),
+      scope: ['Whole campus', "Girls' Hostel", "Boys' Hostel", 'Department'].includes(scope) ? scope : 'Whole campus',
+      status: 'Open', // Initial status is always Open; students cannot set custom status
+      authorId: user.id,
+      authorDisplayName: user.displayName,
+      isAnonymous: !!isAnonymous,
+      upvotesCount: 1, // Author automatically faces this
+      upvotedUserIds: [user.id],
+      solutionsCount: 0,
+      commentsCount: 0,
+      convertedIdeaId: null,
+      isDemo: false,
+      createdAt: new Date().toISOString(),
+      reportsCount: 0,
+      reportedByUserIds: [],
+    };
+
+    if (!this.data.campusProblems) this.data.campusProblems = [];
+    this.data.campusProblems.unshift(newProblem);
+    this.persist();
+
+    return newProblem;
+  }
+
+  toggleVoteProblem(user, problemId) {
+    if (!user) throw new Error('Authentication required');
+    const prob = (this.data.campusProblems || []).find((p) => p.id === problemId);
+    if (!prob) throw new Error('Campus problem not found');
+
+    if (!this.canAccessProblemScope(user, prob.scope)) {
+      throw new Error('Access denied: You cannot vote on a problem restricted to another hostel.');
+    }
+
+    if (!prob.upvotedUserIds) prob.upvotedUserIds = [];
+
+    const index = prob.upvotedUserIds.indexOf(user.id);
+    let hasVoted = false;
+
+    if (index >= 0) {
+      prob.upvotedUserIds.splice(index, 1);
+      prob.upvotesCount = Math.max(0, (prob.upvotesCount || 1) - 1);
+      hasVoted = false;
+    } else {
+      prob.upvotedUserIds.push(user.id);
+      prob.upvotesCount = (prob.upvotesCount || 0) + 1;
+      hasVoted = true;
+    }
+
+    this.persist();
+    return { hasVoted, upvotesCount: prob.upvotesCount };
+  }
+
+  changeProblemStatus(user, problemId, newStatus) {
+    if (!user) throw new Error('Authentication required');
+    const prob = (this.data.campusProblems || []).find((p) => p.id === problemId);
+    if (!prob) throw new Error('Campus problem not found');
+
+    // ONLY ADMINS OR FACULTY/STAFF can set Under Review, Resolved, Closed
+    const isStaffOrAdmin = user.role === 'admin' || user.role === 'faculty';
+    const restrictedStatuses = ['Under Review', 'Resolved', 'Closed'];
+
+    if (restrictedStatuses.includes(newStatus) && !isStaffOrAdmin) {
+      throw new Error(`Unauthorized: Only campus administrators or faculty can set status to "${newStatus}".`);
+    }
+
+    const validStatuses = ['Open', 'Under Review', 'Solution Proposed', 'In Progress', 'Resolved', 'Closed'];
+    if (!validStatuses.includes(newStatus)) {
+      throw new Error('Invalid problem status.');
+    }
+
+    prob.status = newStatus;
+    this.persist();
+
+    // Send notification to author on status change
+    if (prob.authorId && prob.authorId !== user.id) {
+      this.createNotification(prob.authorId, {
+        title: `Campus Problem Status: ${newStatus}`,
+        content: `Your campus problem "${prob.title.slice(0, 40)}..." was updated to ${newStatus}.`,
+        type: 'problem_update',
+        link: '/campus-problems',
+      });
+    }
+
+    return prob;
+  }
+
+  getProblemComments(userOrProblemId, maybeProblemId) {
+    let user = userOrProblemId;
+    let problemId = maybeProblemId;
+    if (!maybeProblemId && typeof userOrProblemId === 'string') {
+      problemId = userOrProblemId;
+      user = null;
+    }
+    const prob = (this.data.campusProblems || []).find((p) => p.id === problemId);
+    if (!prob) throw new Error('Problem not found');
+
+    if (user && !this.canAccessProblemScope(user, prob.scope)) {
+      throw new Error('Access denied to restricted hostel problem comments.');
+    }
+
+    const comments = (this.data.problemComments || []).filter((c) => c.problemId === problemId);
+    const isModerator = user && (user.role === 'admin' || user.role === 'faculty');
+
+    return comments.map((c) => ({
+      ...c,
+      authorDisplayName: c.isAnonymous && !isModerator ? 'Anonymous Student' : c.authorDisplayName,
+    })).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  }
+
+  addProblemComment(user, problemId, commentData) {
+    if (!user) throw new Error('Authentication required');
+    const prob = (this.data.campusProblems || []).find((p) => p.id === problemId);
+    if (!prob) throw new Error('Problem not found');
+
+    if (!this.canAccessProblemScope(user, prob.scope)) {
+      throw new Error('Access denied to comment on restricted hostel problem.');
+    }
+
+    const content = typeof commentData === 'string' ? commentData : commentData?.content;
+    const isAnonymous = typeof commentData === 'object' ? !!commentData?.isAnonymous : false;
+
+    if (!content || !content.trim()) {
+      throw new Error('Comment content cannot be empty.');
+    }
+
+    const comment = {
+      id: 'pcom_' + Date.now(),
+      problemId,
+      authorId: user.id,
+      authorDisplayName: user.displayName,
+      isAnonymous: !!isAnonymous,
+      content: content.trim(),
+      createdAt: new Date().toISOString(),
+    };
+
+    if (!this.data.problemComments) this.data.problemComments = [];
+    this.data.problemComments.push(comment);
+    this.persist();
+
+    // Notify problem author
+    if (prob.authorId && prob.authorId !== user.id) {
+      this.createNotification(prob.authorId, {
+        title: 'New Comment on Campus Problem',
+        content: `${isAnonymous ? 'A student' : user.displayName} commented on "${prob.title.slice(0, 35)}..."`,
+        type: 'problem_comment',
+        link: '/campus-problems',
+      });
+    }
+
+    return comment;
+  }
+
+  getProblemSolutions(userOrProblemId, maybeProblemId) {
+    let user = userOrProblemId;
+    let problemId = maybeProblemId;
+    if (!maybeProblemId && typeof userOrProblemId === 'string') {
+      problemId = userOrProblemId;
+      user = null;
+    }
+    const prob = (this.data.campusProblems || []).find((p) => p.id === problemId);
+    if (!prob) throw new Error('Problem not found');
+
+    if (user && !this.canAccessProblemScope(user, prob.scope)) {
+      throw new Error('Access denied to view solutions for restricted hostel problem.');
+    }
+
+    return (this.data.problemSolutions || [])
+      .filter((s) => s.problemId === problemId)
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
+
+  proposeSolution(user, problemId, solutionData) {
+    if (!user) throw new Error('Authentication required');
+    const prob = (this.data.campusProblems || []).find((p) => p.id === problemId);
+    if (!prob) throw new Error('Problem not found');
+
+    if (!this.canAccessProblemScope(user, prob.scope)) {
+      throw new Error('Access denied to propose solution for restricted hostel problem.');
+    }
+
+    const {
+      title,
+      description,
+      suggestedLocations = '',
+      itemsList = '',
+      powerMaintenanceNeeds = '',
+      whoManagesIt = '',
+      paymentOptions = '',
+      openQuestionsForAdministration = '',
+    } = solutionData;
+
+    if (!title || !description) {
+      throw new Error('Solution title and description are required.');
+    }
+
+    const solution = {
+      id: 'sol_' + Date.now(),
+      problemId,
+      title: title.trim(),
+      description: description.trim(),
+      authorId: user.id,
+      authorDisplayName: user.displayName,
+      convertedIdeaId: null,
+      details: {
+        suggestedLocations: suggestedLocations.trim(),
+        itemsList: itemsList.trim(),
+        powerMaintenanceNeeds: powerMaintenanceNeeds.trim(),
+        whoManagesIt: whoManagesIt.trim(),
+        paymentOptions: paymentOptions.trim(),
+        openQuestionsForAdministration: openQuestionsForAdministration.trim(),
+      },
+      createdAt: new Date().toISOString(),
+      isDemo: false,
+    };
+
+    if (!this.data.problemSolutions) this.data.problemSolutions = [];
+    this.data.problemSolutions.push(solution);
+
+    // Update status to Solution Proposed if currently Open
+    if (prob.status === 'Open') {
+      prob.status = 'Solution Proposed';
+    }
+
+    this.persist();
+
+    // Notify author of the problem
+    if (prob.authorId && prob.authorId !== user.id) {
+      this.createNotification(prob.authorId, {
+        title: 'Solution Proposed for Your Problem',
+        content: `${user.displayName} proposed a solution: "${title.slice(0, 35)}..."`,
+        type: 'problem_solution',
+        link: '/campus-problems',
+      });
+    }
+
+    return solution;
+  }
+
+  convertSolutionToIdea(user, problemId, solutionId) {
+    if (!user) throw new Error('Authentication required');
+    const prob = (this.data.campusProblems || []).find((p) => p.id === problemId);
+    if (!prob) throw new Error('Problem not found');
+
+    const sol = (this.data.problemSolutions || []).find((s) => s.id === solutionId);
+    if (!sol) throw new Error('Solution not found');
+
+    // If already converted, return existing idea link
+    if (sol.convertedIdeaId) {
+      const existing = this.data.ideas.find((i) => i.id === sol.convertedIdeaId);
+      if (existing) return existing;
+    }
+
+    const newIdea = {
+      id: 'idea_' + Date.now(),
+      title: `[INNOVATION] ${sol.title}`,
+      description: `${sol.description} (Originating from campus feedback on: "${prob.title}").`,
+      category: prob.category === 'Hostel Life' ? 'General Innovation' : prob.category,
+      tags: ['Campus Solutions', prob.category, 'Student Project'],
+      authorId: sol.authorId,
+      authorDisplayName: sol.authorDisplayName,
+      seekingTeammates: true,
+      neededSkills: ['Prototyping', 'Implementation', 'Peer Collaboration'],
+      status: 'Active',
+      likesCount: 5,
+      createdAt: new Date().toISOString(),
+      isDemo: false,
+      linkedProblemId: prob.id,
+      linkedSolutionId: sol.id,
+    };
+
+    // Persist and link back
+    this.data.ideas.unshift(newIdea);
+    sol.convertedIdeaId = newIdea.id;
+    prob.convertedIdeaId = newIdea.id;
+    this.persist();
+
+    return newIdea;
+  }
+
+  reportProblem(user, problemId, reason) {
+    if (!user) throw new Error('Authentication required');
+    const prob = (this.data.campusProblems || []).find((p) => p.id === problemId);
+    if (!prob) throw new Error('Problem not found');
+
+    if (!prob.reportedByUserIds) prob.reportedByUserIds = [];
+    if (!prob.reportedByUserIds.includes(user.id)) {
+      prob.reportedByUserIds.push(user.id);
+      prob.reportsCount = (prob.reportsCount || 0) + 1;
+      this.persist();
+    }
+
+    return { reported: true, reportsCount: prob.reportsCount };
   }
 }
 

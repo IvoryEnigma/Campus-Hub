@@ -736,6 +736,56 @@
   ],
   "ideas": [
     {
+      "id": "idea_1791778660395",
+      "title": "[INNOVATION] Mesh WiFi Node Routing for Hostels",
+      "description": "Deploy dual-band mesh nodes in corridor intersections to eliminate room dead zones. (Originating from campus feedback on: \"[DEMO] Weak WiFi in Hostel Rooms and Study Areas\").",
+      "category": "Internet/WiFi",
+      "tags": [
+        "Campus Solutions",
+        "Internet/WiFi",
+        "Student Project"
+      ],
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "seekingTeammates": true,
+      "neededSkills": [
+        "Prototyping",
+        "Implementation",
+        "Peer Collaboration"
+      ],
+      "status": "Active",
+      "likesCount": 5,
+      "createdAt": "2026-10-12T04:17:40.395Z",
+      "isDemo": false,
+      "linkedProblemId": "prob_02",
+      "linkedSolutionId": "sol_1791778660393"
+    },
+    {
+      "id": "idea_1791778553217",
+      "title": "[INNOVATION] Mesh WiFi Node Routing for Hostels",
+      "description": "Deploy dual-band mesh nodes in corridor intersections to eliminate room dead zones. (Originating from campus feedback on: \"[DEMO] Weak WiFi in Hostel Rooms and Study Areas\").",
+      "category": "Internet/WiFi",
+      "tags": [
+        "Campus Solutions",
+        "Internet/WiFi",
+        "Student Project"
+      ],
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "seekingTeammates": true,
+      "neededSkills": [
+        "Prototyping",
+        "Implementation",
+        "Peer Collaboration"
+      ],
+      "status": "Active",
+      "likesCount": 5,
+      "createdAt": "2026-10-12T04:15:53.217Z",
+      "isDemo": false,
+      "problemId": "prob_02",
+      "solutionId": "sol_1791778553214"
+    },
+    {
       "id": "idea_01",
       "title": "[DEMO] Edge-AI Autonomous Border Surveillance Drone",
       "description": "Developing a localized low-latency drone swarm tracking system using Jetson Orin Nano with thermal and infrared cameras for night perimeter security at rugged terrains.",
@@ -806,7 +856,7 @@
   ],
   "ideaLikes": [
     {
-      "id": "lk_1791732880441",
+      "id": "lk_1791778660358",
       "ideaId": "idea_01",
       "userId": "user_stu_ananya"
     }
@@ -880,6 +930,66 @@
     }
   ],
   "opportunities": [
+    {
+      "id": "opp_1791778660353",
+      "title": "[DEMO] Cloud Engineering Mentorship Role",
+      "company": "Microsoft India",
+      "authorDisplayName": "Priya Rathore",
+      "authorId": "user_alumni_priya",
+      "role": "Mentee / Intern",
+      "location": "Pune / Remote",
+      "type": "Internship",
+      "stipend": "Competitive",
+      "description": "Verified alumni mentorship opening.",
+      "deadline": "Open until filled",
+      "isVerified": true,
+      "isDemo": false
+    },
+    {
+      "id": "opp_1791778553173",
+      "title": "[DEMO] Cloud Engineering Mentorship Role",
+      "company": "Microsoft India",
+      "authorDisplayName": "Priya Rathore",
+      "authorId": "user_alumni_priya",
+      "role": "Mentee / Intern",
+      "location": "Pune / Remote",
+      "type": "Internship",
+      "stipend": "Competitive",
+      "description": "Verified alumni mentorship opening.",
+      "deadline": "Open until filled",
+      "isVerified": true,
+      "isDemo": false
+    },
+    {
+      "id": "opp_1791778476132",
+      "title": "[DEMO] Cloud Engineering Mentorship Role",
+      "company": "Microsoft India",
+      "authorDisplayName": "Priya Rathore",
+      "authorId": "user_alumni_priya",
+      "role": "Mentee / Intern",
+      "location": "Pune / Remote",
+      "type": "Internship",
+      "stipend": "Competitive",
+      "description": "Verified alumni mentorship opening.",
+      "deadline": "Open until filled",
+      "isVerified": true,
+      "isDemo": false
+    },
+    {
+      "id": "opp_1791778442890",
+      "title": "[DEMO] Cloud Engineering Mentorship Role",
+      "company": "Microsoft India",
+      "authorDisplayName": "Priya Rathore",
+      "authorId": "user_alumni_priya",
+      "role": "Mentee / Intern",
+      "location": "Pune / Remote",
+      "type": "Internship",
+      "stipend": "Competitive",
+      "description": "Verified alumni mentorship opening.",
+      "deadline": "Open until filled",
+      "isVerified": true,
+      "isDemo": false
+    },
     {
       "id": "opp_1791732880438",
       "title": "[DEMO] Cloud Engineering Mentorship Role",
@@ -955,6 +1065,36 @@
   ],
   "notifications": [
     {
+      "id": "notif_1791778660386_ove7",
+      "userId": "user_stu_rohan",
+      "title": "Campus Problem Status: Resolved",
+      "content": "Your campus problem \"Test Problem by Rohan...\" was updated to Resolved.",
+      "type": "problem_update",
+      "link": "/campus-problems",
+      "isRead": false,
+      "createdAt": "2026-10-12T04:17:40.386Z"
+    },
+    {
+      "id": "notif_1791778553205_8y7v",
+      "userId": "user_stu_rohan",
+      "title": "Campus Problem Status: Resolved",
+      "content": "Your campus problem \"Test Problem by Rohan...\" was updated to Resolved.",
+      "type": "problem_update",
+      "link": "/campus-problems",
+      "isRead": false,
+      "createdAt": "2026-10-12T04:15:53.205Z"
+    },
+    {
+      "id": "notif_1791778476164_jrlk",
+      "userId": "user_stu_rohan",
+      "title": "Campus Problem Status: Resolved",
+      "content": "Your campus problem \"Test Problem by Rohan...\" was updated to Resolved.",
+      "type": "problem_update",
+      "link": "/campus-problems",
+      "isRead": false,
+      "createdAt": "2026-10-12T04:14:36.164Z"
+    },
+    {
       "id": "notif_01",
       "userId": "user_stu_ananya",
       "title": "Official Academic Notice",
@@ -993,5 +1133,401 @@
     "hostel": true,
     "opportunities": true,
     "mentions": true
-  }
+  },
+  "campusProblems": [
+    {
+      "id": "prob_1791778660390",
+      "title": "Confidential Feedback on Mess Quality",
+      "description": "Anonymous mess feedback",
+      "category": "Food & Cafeteria",
+      "location": "College Mess Dining Hall",
+      "timeOfDayAffected": "All day",
+      "whoIsAffected": "All Students",
+      "severity": "medium",
+      "photoUrl": "",
+      "scope": "Whole campus",
+      "status": "Open",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": true,
+      "upvotesCount": 1,
+      "upvotedUserIds": [
+        "user_stu_rohan"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 0,
+      "convertedIdeaId": null,
+      "isDemo": false,
+      "createdAt": "2026-10-12T04:17:40.390Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_1791778660387",
+      "title": "Girls Hostel Wing A Water Heater Check",
+      "description": "Geyser timer check in Wing A",
+      "category": "Hostel Life",
+      "location": "Girls' Hostel Wing A",
+      "timeOfDayAffected": "All day",
+      "whoIsAffected": "All Students",
+      "severity": "medium",
+      "photoUrl": "",
+      "scope": "Girls' Hostel",
+      "status": "Open",
+      "authorId": "user_stu_ananya",
+      "authorDisplayName": "Ananya Sharma Updated",
+      "isAnonymous": false,
+      "upvotesCount": 1,
+      "upvotedUserIds": [
+        "user_stu_ananya"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 0,
+      "convertedIdeaId": null,
+      "isDemo": false,
+      "createdAt": "2026-10-12T04:17:40.388Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_1791778660366",
+      "title": "Test Problem by Rohan",
+      "description": "Testing problem creation from male student",
+      "category": "Internet/WiFi",
+      "location": "OBH Block C",
+      "timeOfDayAffected": "Evening (8 PM - 11 PM)",
+      "whoIsAffected": "All Students",
+      "severity": "medium",
+      "photoUrl": "",
+      "scope": "Boys' Hostel",
+      "status": "Resolved",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": false,
+      "upvotesCount": 1,
+      "upvotedUserIds": [
+        "user_stu_rohan"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 0,
+      "convertedIdeaId": null,
+      "isDemo": false,
+      "createdAt": "2026-10-12T04:17:40.366Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_1791778553211",
+      "title": "Confidential Feedback on Mess Quality",
+      "description": "Anonymous mess feedback",
+      "category": "Food & Cafeteria",
+      "location": "College Mess Dining Hall",
+      "timeOfDayAffected": "All day",
+      "whoIsAffected": "All Students",
+      "severity": "medium",
+      "photoUrl": "",
+      "scope": "Whole campus",
+      "status": "Open",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": true,
+      "upvotesCount": 1,
+      "upvotedUserIds": [
+        "user_stu_rohan"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 0,
+      "convertedIdeaId": null,
+      "isDemo": false,
+      "createdAt": "2026-10-12T04:15:53.211Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_1791778553209",
+      "title": "Girls Hostel Wing A Water Heater Check",
+      "description": "Geyser timer check in Wing A",
+      "category": "Hostel Life",
+      "location": "Girls' Hostel Wing A",
+      "timeOfDayAffected": "All day",
+      "whoIsAffected": "All Students",
+      "severity": "medium",
+      "photoUrl": "",
+      "scope": "Girls' Hostel",
+      "status": "Open",
+      "authorId": "user_stu_ananya",
+      "authorDisplayName": "Ananya Sharma Updated",
+      "isAnonymous": false,
+      "upvotesCount": 1,
+      "upvotedUserIds": [
+        "user_stu_ananya"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 0,
+      "convertedIdeaId": null,
+      "isDemo": false,
+      "createdAt": "2026-10-12T04:15:53.209Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_1791778553188",
+      "title": "Test Problem by Rohan",
+      "description": "Testing problem creation from male student",
+      "category": "Internet/WiFi",
+      "location": "OBH Block C",
+      "timeOfDayAffected": "Evening (8 PM - 11 PM)",
+      "whoIsAffected": "All Students",
+      "severity": "medium",
+      "photoUrl": "",
+      "scope": "Boys' Hostel",
+      "status": "Resolved",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": false,
+      "upvotesCount": 1,
+      "upvotedUserIds": [
+        "user_stu_rohan"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 0,
+      "convertedIdeaId": null,
+      "isDemo": false,
+      "createdAt": "2026-10-12T04:15:53.188Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_1791778476143",
+      "title": "Test Problem by Rohan",
+      "description": "Testing problem creation from male student",
+      "category": "Internet/WiFi",
+      "location": "OBH Block C",
+      "timeOfDayAffected": "Evening (8 PM - 11 PM)",
+      "whoIsAffected": "All Students",
+      "severity": "medium",
+      "photoUrl": "",
+      "scope": "Boys' Hostel",
+      "status": "Resolved",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": false,
+      "upvotesCount": 1,
+      "upvotedUserIds": [
+        "user_stu_rohan"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 0,
+      "convertedIdeaId": null,
+      "isDemo": false,
+      "createdAt": "2026-10-12T04:14:36.143Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_01",
+      "title": "[DEMO] Hostel Night Food/Drink Access (Boys' + Girls' Hostel)",
+      "description": "After the campus gate closes at 9:30 PM students cannot get snacks or drinks, and during the day the cafeteria is far from some hostels/blocks.",
+      "category": "Hostel Life",
+      "location": "Hostel Common Areas (Girls' Wing A & Boys' NB/OB Common Rooms)",
+      "timeOfDayAffected": "9:30 PM - 6:00 AM & Midday break",
+      "whoIsAffected": "All Hostel Residents (Boys' and Girls' Hostels)",
+      "severity": "high",
+      "scope": "Whole campus",
+      "status": "Solution Proposed",
+      "authorId": "user_stu_ananya",
+      "authorDisplayName": "Ananya Sharma",
+      "isAnonymous": false,
+      "upvotesCount": 42,
+      "upvotedUserIds": [
+        "user_stu_ananya",
+        "user_stu_rohan",
+        "user_stu_fe"
+      ],
+      "solutionsCount": 1,
+      "commentsCount": 2,
+      "convertedIdeaId": "idea_vending_01",
+      "isDemo": true,
+      "createdAt": "2026-10-10T12:00:00Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_02",
+      "title": "[DEMO] Weak WiFi in Hostel Rooms and Study Areas",
+      "description": "High packet loss and signal dropouts in end-of-corridor rooms and nocturnal study lounges, hindering submission of assignments and project work.",
+      "category": "Internet/WiFi",
+      "location": "Hostel Resident Wings & Reading Rooms",
+      "timeOfDayAffected": "8:00 PM - 12:00 AM (Peak study hours)",
+      "whoIsAffected": "Hostel Residents across all wings",
+      "severity": "high",
+      "scope": "Whole campus",
+      "status": "Under Review",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": true,
+      "upvotesCount": 68,
+      "upvotedUserIds": [
+        "user_stu_rohan",
+        "user_stu_ananya"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 3,
+      "convertedIdeaId": "idea_1791778660395",
+      "isDemo": true,
+      "createdAt": "2026-10-09T15:30:00Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_03",
+      "title": "[DEMO] Limited Library Seating During Exam Season",
+      "description": "Reading hall capacity fills to 100% within 15 minutes of opening during mid-term and end-semester SPPU exam weeks, forcing students to search for empty classrooms.",
+      "category": "Library & Study Spaces",
+      "location": "Central Library 1st & 2nd Floor Reading Halls",
+      "timeOfDayAffected": "Exam preparation weeks (08:00 - 22:00)",
+      "whoIsAffected": "All Undergraduate Students",
+      "severity": "medium",
+      "scope": "Whole campus",
+      "status": "Open",
+      "authorId": "user_stu_fe",
+      "authorDisplayName": "Divya Nair",
+      "isAnonymous": false,
+      "upvotesCount": 35,
+      "upvotedUserIds": [
+        "user_stu_fe",
+        "user_stu_ananya"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 1,
+      "convertedIdeaId": null,
+      "isDemo": true,
+      "createdAt": "2026-10-08T11:00:00Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    },
+    {
+      "id": "prob_04",
+      "title": "[DEMO] No Central Lost-and-Found for Academic Blocks",
+      "description": "Items misplaced in lecture halls, computer labs, or seminar rooms have no centralized repository or online tracking point, causing delayed retrieval of keys, calculators, and IDs.",
+      "category": "Administration",
+      "location": "Academic Complex & Engineering Labs",
+      "timeOfDayAffected": "Throughout college hours",
+      "whoIsAffected": "All Students & Faculty",
+      "severity": "low",
+      "scope": "Whole campus",
+      "status": "Open",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": false,
+      "upvotesCount": 21,
+      "upvotedUserIds": [
+        "user_stu_rohan"
+      ],
+      "solutionsCount": 0,
+      "commentsCount": 0,
+      "convertedIdeaId": null,
+      "isDemo": true,
+      "createdAt": "2026-10-07T09:15:00Z",
+      "reportsCount": 0,
+      "reportedByUserIds": []
+    }
+  ],
+  "problemComments": [
+    {
+      "id": "pcom_01",
+      "problemId": "prob_01",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": false,
+      "content": "Fully agree. During exam preparation past 10 PM, having coffee or light snacks in the hostel common lounge would be a massive relief.",
+      "createdAt": "2026-10-10T13:00:00Z"
+    },
+    {
+      "id": "pcom_1791778476158",
+      "problemId": "prob_1791778476143",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": false,
+      "content": "I have also experienced this packet drop issue.",
+      "createdAt": "2026-10-12T04:14:36.158Z"
+    },
+    {
+      "id": "pcom_1791778553200",
+      "problemId": "prob_1791778553188",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": false,
+      "content": "I have also experienced this packet drop issue.",
+      "createdAt": "2026-10-12T04:15:53.200Z"
+    },
+    {
+      "id": "pcom_1791778660382",
+      "problemId": "prob_1791778660366",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "isAnonymous": false,
+      "content": "I have also experienced this packet drop issue.",
+      "createdAt": "2026-10-12T04:17:40.382Z"
+    }
+  ],
+  "problemSolutions": [
+    {
+      "id": "sol_01",
+      "problemId": "prob_01",
+      "title": "Smart Vending Machines in Hostel Common Areas",
+      "description": "Deploy smart vending machines in hostel common recreation areas providing healthy snacks and hot/cold beverages (NO bottled water; filtered coolers remain primary).",
+      "authorId": "user_stu_ananya",
+      "authorDisplayName": "Ananya Sharma",
+      "convertedIdeaId": "idea_vending_01",
+      "details": {
+        "suggestedLocations": "Ground floor recreation halls of Girls' Hostel (Wing A) and Boys' Hostel (OB & NB common rooms).",
+        "itemsList": "Nutritious snacks, energy bars, roasted nuts, tea/coffee sachets, hot beverage dispenser. Strictly NO bottled water (filtered water coolers available).",
+        "powerMaintenanceNeeds": "Standard 230V 15A power socket per machine; weekly vendor replenishment schedule (to be estimated).",
+        "whoManagesIt": "Joint student oversight by Student Mess Committee and Hostel Warden Council.",
+        "paymentOptions": "Digital UPI QR code and NFC student identity tap (to be estimated).",
+        "openQuestionsForAdministration": "Power tariff sharing model, security camera coverage in dispenser lobbies, vendor access authorization past curfew hours (to be estimated)."
+      },
+      "createdAt": "2026-10-10T14:00:00Z",
+      "isDemo": true
+    },
+    {
+      "id": "sol_1791778553214",
+      "problemId": "prob_02",
+      "title": "Mesh WiFi Node Routing for Hostels",
+      "description": "Deploy dual-band mesh nodes in corridor intersections to eliminate room dead zones.",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "convertedIdeaId": "idea_1791778553217",
+      "details": {
+        "suggestedLocations": "",
+        "itemsList": "",
+        "powerMaintenanceNeeds": "",
+        "whoManagesIt": "",
+        "paymentOptions": "",
+        "openQuestionsForAdministration": ""
+      },
+      "createdAt": "2026-10-12T04:15:53.214Z",
+      "isDemo": false
+    },
+    {
+      "id": "sol_1791778660393",
+      "problemId": "prob_02",
+      "title": "Mesh WiFi Node Routing for Hostels",
+      "description": "Deploy dual-band mesh nodes in corridor intersections to eliminate room dead zones.",
+      "authorId": "user_stu_rohan",
+      "authorDisplayName": "Rohan Verma",
+      "convertedIdeaId": "idea_1791778660395",
+      "details": {
+        "suggestedLocations": "",
+        "itemsList": "",
+        "powerMaintenanceNeeds": "",
+        "whoManagesIt": "",
+        "paymentOptions": "",
+        "openQuestionsForAdministration": ""
+      },
+      "createdAt": "2026-10-12T04:17:40.393Z",
+      "isDemo": false
+    }
+  ]
 }
